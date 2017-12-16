@@ -1,27 +1,64 @@
 #include "stdafx.h"
 #include "MastermindGame.h"
 
-void MastermindGame::Reset()
+
+MastermindGame::MastermindGame()
 {
+	Reset();
+	GenarateHiddenNumber(4);
+}
+
+void MastermindGame::GenarateHiddenNumber(int DigitNumber)
+{
+	//Replace hard coded number with generated number
+	MyHiddenNumber = "1234";
 	return;
 }
 
-int MastermindGame::GetMaxTries()
+int MastermindGame::GetCurrentTry() const { return MyCurrentTry; }
+int MastermindGame::GetMaxTries() const { return MyMaxTries; }
+int MastermindGame::GetHiddenNumberLength() const { return MyHiddenNumber.length(); }
+
+void MastermindGame::Reset()
 {
-	return 0;
+	constexpr int MAX_TRIES = 8;
+	MyMaxTries = MAX_TRIES;
+	MyCurrentTry = 1;
+	return;
 }
 
-int MastermindGame::GetCurrentTry()
+GuessStatus MastermindGame::CheckGuessValidity(std::string Guess)
 {
-	return 0;
+	//TODO make actual check
+	if (GetHiddenNumberLength() != Guess.length()) {
+		return GuessStatus::Wrong_Length;
+	} 
+	
+	return GuessStatus::Ok;
 }
 
-bool MastermindGame::CheckGuess(std::string)
+//receives a valid guess, increment turn, and returns count
+CirclesAndTrianglesCount MastermindGame::SumbitValidGuess(std::string Guess)
 {
-	return false;
+	MyCurrentTry++;
+	CirclesAndTrianglesCount CTCount;
+
+	for (int i = 0; i < MyHiddenNumber.length(); i++)
+	{
+		if (Guess[i] == MyHiddenNumber[i]) CTCount.Squares++;
+		else
+		{
+			for (int j = 0; j < MyHiddenNumber.length(); j++)
+			{
+				if (Guess[i] == MyHiddenNumber[j]) CTCount.Circles++;
+			}
+		}
+		
+	}
+	return CTCount;
 }
 
-bool MastermindGame::IsGameWon()
+bool MastermindGame::IsGameWon() const
 {
 	return false;
 }

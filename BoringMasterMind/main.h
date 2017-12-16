@@ -2,6 +2,6 @@
 
 void PrintIntro();
 void PlayGame();
-std::string InputGuess();
+std::string InputValidGuess();
 void PrintGuess(std::string Guess);
 bool AskToPlayAgain();
