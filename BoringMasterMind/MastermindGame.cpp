@@ -18,12 +18,14 @@ void MastermindGame::GenarateHiddenNumber(int DigitNumber)
 int MastermindGame::GetCurrentTry() const { return MyCurrentTry; }
 int MastermindGame::GetMaxTries() const { return MyMaxTries; }
 int MastermindGame::GetHiddenNumberLength() const { return MyHiddenNumber.length(); }
+bool MastermindGame::IsGameWon() const { return GameIsWon; }
 
 void MastermindGame::Reset()
 {
 	constexpr int MAX_TRIES = 8;
 	MyMaxTries = MAX_TRIES;
 	MyCurrentTry = 1;
+	GameIsWon = false;
 	return;
 }
 
@@ -53,12 +55,14 @@ CirclesAndTrianglesCount MastermindGame::SumbitValidGuess(std::string Guess)
 				if (Guess[i] == MyHiddenNumber[j]) CTCount.Circles++;
 			}
 		}
-		
+	}
+	if (CTCount.Squares == MyHiddenNumber.length()) {
+		GameIsWon = true;
+	}
+	else {
+		GameIsWon = false;
 	}
 	return CTCount;
 }
 
-bool MastermindGame::IsGameWon() const
-{
-	return false;
-}
+

@@ -37,4 +37,5 @@ private:
 	int MyCurrentTry;
 	int MyMaxTries;
 	std::string MyHiddenNumber;
+	bool GameIsWon;
 };
