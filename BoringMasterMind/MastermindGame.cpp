@@ -19,6 +19,23 @@ int MastermindGame::GetCurrentTry() const { return MyCurrentTry; }
 int MastermindGame::GetMaxTries() const { return MyMaxTries; }
 int MastermindGame::GetHiddenNumberLength() const { return MyHiddenNumber.length(); }
 bool MastermindGame::IsGameWon() const { return GameIsWon; }
+bool MastermindGame::HasDuplicateDigits(std::string Guess) const
+{
+	std::map<char, bool> DigitSeen;
+	for (auto Digit : Guess) {
+		if (DigitSeen[Digit]) return true;
+		else DigitSeen[Digit] = true;
+	}
+	return false;
+}
+bool MastermindGame::IsNotNumbers(std::string Guess) const
+{
+	for (auto d : Guess) {
+		if (!isdigit(d)) return true;
+	}
+	return false;
+}
+
 
 void MastermindGame::Reset()
 {
@@ -32,11 +49,10 @@ void MastermindGame::Reset()
 GuessStatus MastermindGame::CheckGuessValidity(std::string Guess)
 {
 	//TODO make actual check
-	if (GetHiddenNumberLength() != Guess.length()) {
-		return GuessStatus::Wrong_Length;
-	} 
-	
-	return GuessStatus::Ok;
+	if (HasDuplicateDigits(Guess)) return GuessStatus::Duplicate_Number_Found;
+	else if (GetHiddenNumberLength() != Guess.length()) return GuessStatus::Wrong_Length;
+	else if (IsNotNumbers(Guess)) return GuessStatus::Only_Numbers_Allowed;
+	else return GuessStatus::Ok;
 }
 
 //receives a valid guess, increment turn, and returns count

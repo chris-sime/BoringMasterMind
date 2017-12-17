@@ -1,6 +1,9 @@
 #pragma once
 #include <string>
+#include <map>
 
+//Circles when a nubmer exist in the guess
+//Square when it's in the right place
 struct CirclesAndTrianglesCount
 {
 	int Circles = 0;
@@ -16,8 +19,7 @@ enum GuessStatus {
 	Wrong_Length,
 	Only_Numbers_Allowed
 };
-//Circles when a nubmer exist in the guess
-//Square when it's in the right place
+
 
 class MastermindGame {
 public:
@@ -28,6 +30,7 @@ public:
 	int GetCurrentTry() const;
 	int GetHiddenNumberLength() const;
 	bool IsGameWon() const;
+	
 
 	void Reset();
 	GuessStatus CheckGuessValidity(std::string);
@@ -38,4 +41,7 @@ private:
 	int MyMaxTries;
 	std::string MyHiddenNumber;
 	bool GameIsWon;
+
+	bool HasDuplicateDigits(std::string) const;
+	bool IsNotNumbers(std::string) const;
 };
