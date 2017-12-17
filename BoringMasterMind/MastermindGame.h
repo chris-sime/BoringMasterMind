@@ -10,7 +10,8 @@ struct CirclesAndTrianglesCount
 	int Squares = 0;
 };
 
-enum difficulty { Easy, Normal, Hard };
+enum Difficulty { Easy, Normal, Hard };
+
 
 enum GuessStatus {
 	Invalid_Status,
@@ -25,12 +26,12 @@ class MastermindGame {
 public:
 
 	MastermindGame();
-	void GenarateHiddenNumber(int); //TODO
+	void GenarateHiddenNumber(); //TODO
 	int GetMaxTries() const;
 	int GetCurrentTry() const;
 	int GetHiddenNumberLength() const;
 	bool IsGameWon() const;
-	
+	void SetDifficulty(Difficulty);
 
 	void Reset();
 	GuessStatus CheckGuessValidity(std::string);
@@ -39,9 +40,14 @@ public:
 private:
 	int MyCurrentTry;
 	int MyMaxTries;
+	int MyNumberOfDigits;
 	std::string MyHiddenNumber;
 	bool GameIsWon;
+	Difficulty MyDifficulty;
+
+
 
 	bool HasDuplicateDigits(std::string) const;
 	bool IsNotNumbers(std::string) const;
+	
 };

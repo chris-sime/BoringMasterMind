@@ -1,17 +1,24 @@
 #include "stdafx.h"
 #include "MastermindGame.h"
-
+#include <iostream>
 
 MastermindGame::MastermindGame()
 {
 	Reset();
-	GenarateHiddenNumber(4);
 }
 
-void MastermindGame::GenarateHiddenNumber(int DigitNumber)
+void MastermindGame::GenarateHiddenNumber()
 {
-	//Replace hard coded number with generated number
-	MyHiddenNumber = "1234";
+	std::map<char, bool> DigitsSeen;
+	
+	do {
+		MyHiddenNumber = "";
+		for (int i = 0; i < MyNumberOfDigits; i++)
+		{
+			MyHiddenNumber.append(std::to_string(rand() % 10));
+		}
+	} while (HasDuplicateDigits(MyHiddenNumber));
+	
 	return;
 }
 
@@ -35,12 +42,30 @@ bool MastermindGame::IsNotNumbers(std::string Guess) const
 	}
 	return false;
 }
-
-
+void MastermindGame::SetDifficulty(Difficulty dif) {
+	switch (dif)
+	{
+	case Easy:
+		MyMaxTries = 20;
+		MyNumberOfDigits = 4;
+		break;
+	case Normal:
+		MyMaxTries = 15;
+		MyNumberOfDigits = 5;
+		break;
+	case Hard:
+		MyMaxTries = 10;
+		MyNumberOfDigits = 6;
+		break;
+	default:
+		MyMaxTries = 20;
+		MyNumberOfDigits = 4;
+		break;
+	}
+}
 void MastermindGame::Reset()
 {
-	constexpr int MAX_TRIES = 8;
-	MyMaxTries = MAX_TRIES;
+	GenarateHiddenNumber();
 	MyCurrentTry = 1;
 	GameIsWon = false;
 	return;
@@ -61,12 +86,12 @@ CirclesAndTrianglesCount MastermindGame::SumbitValidGuess(std::string Guess)
 	MyCurrentTry++;
 	CirclesAndTrianglesCount CTCount;
 
-	for (int i = 0; i < MyHiddenNumber.length(); i++)
+	for (int i = 0; i < (int)MyHiddenNumber.length(); i++)
 	{
 		if (Guess[i] == MyHiddenNumber[i]) CTCount.Squares++;
 		else
 		{
-			for (int j = 0; j < MyHiddenNumber.length(); j++)
+			for (int j = 0; j < (int)MyHiddenNumber.length(); j++)
 			{
 				if (Guess[i] == MyHiddenNumber[j]) CTCount.Circles++;
 			}
