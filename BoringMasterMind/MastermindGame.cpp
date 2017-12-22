@@ -7,6 +7,7 @@ MastermindGame::MastermindGame()
 	Reset();
 }
 
+//TODO: Find a better way to genarate numbers with non repeated digits
 void MastermindGame::GenarateHiddenNumber()
 {
 	std::map<char, bool> DigitsSeen;
