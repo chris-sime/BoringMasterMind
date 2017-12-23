@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "MastermindGame.h"
 #include <iostream>
+#include <time.h>
 
 MastermindGame::MastermindGame()
 {
@@ -11,7 +12,7 @@ MastermindGame::MastermindGame()
 void MastermindGame::GenarateHiddenNumber()
 {
 	std::map<char, bool> DigitsSeen;
-	
+	srand(time(NULL));
 	do {
 		MyHiddenNumber = "";
 		for (int i = 0; i < MyNumberOfDigits; i++)
