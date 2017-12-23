@@ -30,6 +30,7 @@ public:
 	int GetMaxTries() const;
 	int GetCurrentTry() const;
 	int GetHiddenNumberLength() const;
+	std::string GetHiddenNumber() const;
 	bool IsGameWon() const;
 	void SetDifficulty(Difficulty);
 

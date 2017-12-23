@@ -26,6 +26,8 @@ void MastermindGame::GenarateHiddenNumber()
 int MastermindGame::GetCurrentTry() const { return MyCurrentTry; }
 int MastermindGame::GetMaxTries() const { return MyMaxTries; }
 int MastermindGame::GetHiddenNumberLength() const { return MyHiddenNumber.length(); }
+std::string MastermindGame::GetHiddenNumber() const { return MyHiddenNumber; }
+
 bool MastermindGame::IsGameWon() const { return GameIsWon; }
 bool MastermindGame::HasDuplicateDigits(std::string Guess) const
 {
